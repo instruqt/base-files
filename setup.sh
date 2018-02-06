@@ -39,8 +39,7 @@ fi
 
 # Copy the SSH keys from the secret and set the correct permissions
 if [ -f /.ssh-keys/authorized_keys ]; then
-  mkdir -p /root/.ssh
-  cp /.ssh-keys/authorized_keys /root/.ssh/authorized_keys
+  cat /.ssh-keys/authorized_keys >> /root/.ssh/authorized_keys
   /bin/chmod -Rf 0600 /root/.ssh
 fi
 
