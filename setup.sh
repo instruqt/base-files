@@ -37,11 +37,26 @@ if [ -f /etc/alpine-release ]; then
   rm -f /root/.ash_history && ln -s /root/.bash_history /root/.ash_history
 fi
 
-# Copy the SSH keys from the secret and set the correct permissions
+# TODO: remove this when the items below succeed
 if [ -f /.ssh-keys/authorized_keys ]; then
   cat /.ssh-keys/authorized_keys >> /root/.ssh/authorized_keys
   /bin/chmod -Rf 0600 /root/.ssh
 fi
+
+# Copy the SSH keys from the secret
+if [ -f /.authorized-keys/authorized_keys ]; then
+  cat /.authorized-keys/authorized_keys >> /root/.ssh/authorized_keys
+fi
+
+# Copy the SSH keys from the secret
+if [ -f /.ssh-keys/id_rsa ]; then
+  cp /.ssh-keys/* /root/.ssh/
+fi
+
+# Set the correct permissions on the SSH directory
+/bin/chmod -Rf 0600 /root/.ssh
+
+
 
 # Prettify the terminal
 cp ${BASEDIR}/config/vimrc /root/.vimrc
@@ -50,7 +65,7 @@ cp ${BASEDIR}/config/bash_functions /root/.bash_functions
 cp ${BASEDIR}/config/bash_profile /root/.bash_profile
 
 # Start dropbear
-${BASEDIR}/bin/dumb-init ${BASEDIR}/bin/dropbear -s -g -F -R -E >/var/log/dropbear.log &
+pgrep sshd || ${BASEDIR}/bin/dumb-init ${BASEDIR}/bin/dropbear -s -g -F -R -E >/var/log/dropbear.log &
 
 # Start the entrypoint of the user but only if it is different from the shell
 if [ -n "$INSTRUQT_ENTRYPOINT" ] && [ "$INSTRUQT_ENTRYPOINT" != "$INSTRUQT_GOTTY_SHELL" ]; then
