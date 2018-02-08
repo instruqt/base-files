@@ -1,0 +1,3 @@
+#!/bin/sh
+sed -i "s%^\(WORKDIR=\).*\$%\1\"$1\"%" ~/.bashrc
+cd $1
