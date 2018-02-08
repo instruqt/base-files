@@ -8,7 +8,7 @@ unset $(env | awk -F= '/^\w/ {print $1}'|grep -e "_HOST" -e "_PORT" |xargs)
 BASEDIR=/opt/bootstrap/base-files
 
 # Create the required directories
-mkdir -p /etc/dropbear /root/.ssh
+mkdir -p /etc/dropbear ~/.ssh
 
 if [ ! -e "$INSTRUQT_GOTTY_SHELL" ]; then
   INSTRUQT_GOTTY_SHELL=/bin/sh
@@ -21,51 +21,48 @@ fi
 
 
 # Create a clean .bash_history
-rm -f /root/.bash_history && touch /root/.bash_history
+rm -f ~/.bash_history && touch ~/.bash_history
 
 # Set environment variables
 export TERM=xterm
 export PROMPT_COMMAND='history -a'
 export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-export ENV=/root/.bashrc
 
 
 # Fix for Alpine (MUSL <-> GLIBC)
 if [ -f /etc/alpine-release ]; then
   cp $BASEDIR/files/sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
-  apk add -q $BASEDIR/files/glibc-2.26-r0.apk bash
-  sed -i 's/bin\/ash/bin\/bash/g' /etc/passwd
-  rm /bin/sh && ln -s /bin/bash /bin/sh
-  rm /bin/ash && ln -s /bin/bash /bin/ash
-  rm -f /root/.ash_history && ln -s /root/.bash_history /root/.ash_history
+  apk add -q $BASEDIR/files/glibc-2.26-r0.apk
+  rm -f ~/.ash_history && ln -s ~/.bash_history ~/.ash_history
 fi
 
 # TODO: remove this when the items below succeed
 if [ -f /.ssh-keys/authorized_keys ]; then
-  cat /.ssh-keys/authorized_keys >> /root/.ssh/authorized_keys
-  /bin/chmod -Rf 0600 /root/.ssh
+  cat /.ssh-keys/authorized_keys >> ~/.ssh/authorized_keys
+  /bin/chmod -Rf 0600 ~/.ssh
 fi
 
 # Copy the SSH keys from the secret
 if [ -f /.authorized-keys/authorized_keys ]; then
-  cat /.authorized-keys/authorized_keys >> /root/.ssh/authorized_keys
+  cat /.authorized-keys/authorized_keys >> ~/.ssh/authorized_keys
 fi
 
 # Copy the SSH keys from the secret
 if [ -f /.ssh-keys/id_rsa ]; then
-  cp /.ssh-keys/* /root/.ssh/
+  cp /.ssh-keys/* ~/.ssh/
 fi
 
 # Set the correct permissions on the SSH directory
-/bin/chmod -Rf 0600 /root/.ssh
-
-
+/bin/chmod -Rf 0600 ~/.ssh
 
 # Prettify the terminal
-cp ${BASEDIR}/config/vimrc /root/.vimrc
-cp ${BASEDIR}/config/bashrc /root/.bashrc
-cp ${BASEDIR}/config/bash_functions /root/.bash_functions
-cp ${BASEDIR}/config/bash_profile /root/.bash_profile
+cp ${BASEDIR}/config/vimrc ~/.vimrc
+cp ${BASEDIR}/config/bashrc ~/.bashrc
+cp ${BASEDIR}/config/bash_profile ~/.bash_profile
+
+# Copy the helper functions
+chmod +x ${BASEDIR}/bin/functions/* 
+cp -a ${BASEDIR}/bin/functions/* /usr/local/bin/
 
 # Start dropbear
 pgrep sshd || ${BASEDIR}/bin/dumb-init ${BASEDIR}/bin/dropbear -s -g -F -R -E >/var/log/dropbear.log &

@@ -59,13 +59,12 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-
 if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
 # Workdir
-WORKDIR=""
+WORKDIR="~"
 if [ -e "$WORKDIR" ]; then
   cd $WORKDIR
 fi
