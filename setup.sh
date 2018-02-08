@@ -34,7 +34,9 @@ export ENV=/root/.bashrc
 if [ -f /etc/alpine-release ]; then
   cp $BASEDIR/files/sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
   apk add -q $BASEDIR/files/glibc-2.26-r0.apk bash
+  sed -i 's/bin\/ash/bin\/bash/g' /etc/passwd
   rm /bin/sh && ln -s /bin/bash /bin/sh
+  rm /bin/ash && ln -s /bin/bash /bin/ash
   rm -f /root/.ash_history && ln -s /root/.bash_history /root/.ash_history
 fi
 
