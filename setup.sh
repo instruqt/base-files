@@ -62,6 +62,7 @@ cp ${BASEDIR}/config/bashrc ~/.bashrc
 # Copy the helper functions
 chmod +x ${BASEDIR}/bin/functions/* 
 cp -a ${BASEDIR}/bin/functions/* /bin/
+cp -a ${BASEDIR}/bin/scp /bin/scp
 
 # Start dropbear
 pgrep sshd || ${BASEDIR}/bin/dumb-init ${BASEDIR}/bin/dropbear -s -g -F -R -E >/var/log/dropbear.log &
