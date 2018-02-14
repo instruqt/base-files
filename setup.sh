@@ -19,7 +19,6 @@ rm -f ~/.bash_history && touch ~/.bash_history
 # Set environment variables
 export TERM=xterm
 export PROMPT_COMMAND='history -a'
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 
 # Fix for Alpine (MUSL <-> GLIBC)
@@ -51,7 +50,7 @@ fi
 # Prettify the terminal
 cp ${BASEDIR}/config/vimrc ~/.vimrc
 cp ${BASEDIR}/config/bashrc ~/.bashrc
-cp ${BASEDIR}/config/bashrc ~/.profile
+cp ${BASEDIR}/config/bashrc /etc/profile
 
 # Copy the helper functions
 chmod +x ${BASEDIR}/bin/functions/* 
