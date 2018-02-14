@@ -11,15 +11,8 @@ BASEDIR=/opt/bootstrap/base-files
 # Create the required directories
 mkdir -p /etc/dropbear ~/.ssh
 
-if [ ! -e "$INSTRUQT_GOTTY_SHELL" ]; then
-  INSTRUQT_GOTTY_SHELL=/bin/sh
-fi
-
-
-if [ ! -e "$INSTRUQT_GOTTY_PORT" ]; then
-  INSTRUQT_GOTTY_PORT=15778
-fi
-
+GOTTY_SHELL=${INSTRUQT_GOTTY_SHELL:-/bin/sh}
+GOTTY_PORT=${INSTRUQT_GOTTY_PORT:-15778}
 
 # Create a clean .bash_history
 rm -f ~/.bash_history && touch ~/.bash_history
