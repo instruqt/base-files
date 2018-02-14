@@ -50,6 +50,7 @@ fi
 
 # Prettify the terminal
 cp ${BASEDIR}/config/vimrc ~/.vimrc
+cp ${BASEDIR}/config/bashrc ~/.bashrc
 cp ${BASEDIR}/config/bashrc ~/.profile
 
 # Copy the helper functions
