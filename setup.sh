@@ -62,7 +62,7 @@ cp -a ${BASEDIR}/bin/scp /bin/scp
 pgrep sshd || ${BASEDIR}/bin/dumb-init ${BASEDIR}/bin/dropbear -s -g -F -R -E >/var/log/dropbear.log &
 
 # Start the entrypoint of the user but only if it is different from the shell
-if [ -n "$INSTRUQT_ENTRYPOINT" ] && [ "$INSTRUQT_ENTRYPOINT" != "$INSTRUQT_GOTTY_SHELL" ]; then
+if [ -n "$INSTRUQT_ENTRYPOINT" ] && [ "$INSTRUQT_ENTRYPOINT" != "$GOTTY_SHELL" ]; then
     ${BASEDIR}/bin/dumb-init -- /bin/sh -c "$INSTRUQT_ENTRYPOINT $INSTRUQT_CMD" >/var/log/process.log 2>&1 &
 fi
 
@@ -75,5 +75,5 @@ fi
 ${BASEDIR}/bin/dumb-init --rewrite 2:15 --rewrite 15:9 ${BASEDIR}/bin/gotty \
         --title-format "Instruqt Shell" \
         --permit-write \
-        --port $INSTRUQT_GOTTY_PORT \
-        /bin/sh -c "$INSTRUQT_GOTTY_SHELL"
+        --port $GOTTY_PORT \
+        /bin/sh -c "$GOTTY_SHELL"
