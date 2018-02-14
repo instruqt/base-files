@@ -1,5 +1,5 @@
 #!/bin/sh
-env
+env > /tmp/environment
 
 set -e
 
