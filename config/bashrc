@@ -66,7 +66,7 @@ if [ -f ~/.bash_functions ]; then
 fi
 
 # Workdir
-WORKDIR="~"
+WORKDIR="$HOME"
 if [ -e "$WORKDIR" ]; then
   cd $WORKDIR
 fi

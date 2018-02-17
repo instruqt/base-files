@@ -49,8 +49,8 @@ fi
 
 # Prettify the terminal
 cp ${BASEDIR}/config/vimrc ~/.vimrc
-cp ${BASEDIR}/config/bashrc ~/.bashrc
-ln -s ~/.bashrc ~/.ashrc
+#cp ${BASEDIR}/config/bashrc ~/.bashrc
+#ln -s ~/.bashrc ~/.ashrc
 cp ${BASEDIR}/config/bashrc /etc/profile
 
 # Copy the helper functions
