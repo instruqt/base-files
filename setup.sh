@@ -48,10 +48,9 @@ fi
 /bin/chmod -Rf 0600 ~/.ssh
 
 # Prettify the terminal
-cp ${BASEDIR}/config/vimrc ~/.vimrc
-#cp ${BASEDIR}/config/bashrc ~/.bashrc
-#ln -s ~/.bashrc ~/.ashrc
-cp ${BASEDIR}/config/bashrc /etc/profile
+cp ${BASEDIR}/config/vimrc $HOME/.vimrc
+cp ${BASEDIR}/config/bashrc /etc/bash.bashrc
+cp ${BASEDIR}/config/profile /etc/profile
 
 # Copy the helper functions
 chmod +x ${BASEDIR}/bin/functions/* 
