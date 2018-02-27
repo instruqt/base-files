@@ -17,7 +17,7 @@ GOTTY_PORT=${INSTRUQT_GOTTY_PORT:-15778}
 rm -f ~/.bash_history && touch ~/.bash_history
 
 # Set environment variables
-export TERM=xterm
+export TERM=xterm-color
 export PROMPT_COMMAND='history -a'
 
 
@@ -53,7 +53,7 @@ cp ${BASEDIR}/config/bashrc $HOME/.bashrc
 cp ${BASEDIR}/config/profile /etc/profile
 
 # Copy the helper functions
-chmod +x ${BASEDIR}/bin/functions/* 
+chmod +x ${BASEDIR}/bin/functions/*
 cp -a ${BASEDIR}/bin/functions/* /bin/
 cp -a ${BASEDIR}/bin/scp /bin/scp
 
