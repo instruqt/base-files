@@ -8,7 +8,7 @@ unset $(env | awk -F= '/^\w/ {print $1}'|grep -e "_HOST" -e "_PORT" |xargs)
 BASEDIR=/opt/bootstrap/base-files
 
 # Create the required directories
-mkdir -p /etc/dropbear ~/.ssh
+mkdir -p /etc/dropbear ~/.ssh /var/log
 
 GOTTY_SHELL=${INSTRUQT_GOTTY_SHELL:-/bin/sh}
 GOTTY_PORT=${INSTRUQT_GOTTY_PORT:-15778}
