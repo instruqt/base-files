@@ -9,7 +9,6 @@ HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-#PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export LESS="-R"
 
 # make less more friendly for non-text input files, see lesspipe(1)

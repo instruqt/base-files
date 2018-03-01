@@ -58,8 +58,6 @@ chmod +x ${BASEDIR}/bin/functions/*
 cp -a ${BASEDIR}/bin/functions/* /bin/
 cp -a ${BASEDIR}/bin/scp /bin/scp
 
-echo "export PATH=$PATH" >> ~/.bashrc
-
 # Start dropbear
 pgrep sshd || ${BASEDIR}/bin/dumb-init ${BASEDIR}/bin/dropbear -s -g -F -R -E >/var/log/dropbear.log &
 
