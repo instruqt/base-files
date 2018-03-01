@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo $PATH
+echo "export PATH=$PATH" >> ~/.bashrc
 
 set -e
 
