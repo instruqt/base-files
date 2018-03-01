@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo $PATH
+
 set -e
 
 # Unset Kubernetes variables
@@ -75,4 +77,4 @@ ${BASEDIR}/bin/dumb-init --rewrite 2:15 --rewrite 15:9 ${BASEDIR}/bin/gotty \
         --title-format "Instruqt Shell" \
         --permit-write \
         --port $GOTTY_PORT \
-        /bin/sh -l -c "$GOTTY_SHELL"
+        /bin/sh -c "$GOTTY_SHELL"
