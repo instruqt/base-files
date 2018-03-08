@@ -1,10 +1,11 @@
 #!/bin/sh
 
+echo "Running setup script"
 
 set -e
 
 # Unset Kubernetes variables
-unset $(env | awk -F= '/^\w/ {print $1}'|grep -e "_HOST" -e "_PORT" |xargs)
+unset $(env | awk -F= '/^\w/ {print $1}'|grep -e '_SERVICE_PORT$' -e '_TCP_ADDR$' -e '_TCP_PROTO$' |xargs)
 
 BASEDIR=/opt/bootstrap/base-files
 
@@ -71,9 +72,13 @@ if [ -n "$INSTRUQT_CMD" ] &&  [ "$INSTRUQT_CMD" != "$INSTRUQT_GOTTY_SHELL" ]; th
     ${BASEDIR}/bin/dumb-init -- /bin/sh -c "$INSTRUQT_CMD" >/var/log/process.log 2>&1 &
 fi
 
+echo "Setup completed, starting Gotty"
+
 # Start Gotty
 ${BASEDIR}/bin/dumb-init --rewrite 2:15 --rewrite 15:9 ${BASEDIR}/bin/gotty \
         --title-format "Instruqt Shell" \
         --permit-write \
         --port $GOTTY_PORT \
         /bin/sh -c "$GOTTY_SHELL"
+
+
