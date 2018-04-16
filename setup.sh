@@ -68,7 +68,7 @@ if [ -n "$INSTRUQT_ENTRYPOINT" ] && [ "$INSTRUQT_ENTRYPOINT" != "$GOTTY_SHELL" ]
 fi
 
 # Start the CMD of the user but only if it is different from the shell
-if [ -n "$INSTRUQT_CMD" ] &&  [ "$INSTRUQT_CMD" != "$INSTRUQT_GOTTY_SHELL" ]; then
+if [ -z "$INSTRUQT_ENTRYPOINT" ] && [ -n "$INSTRUQT_CMD" ] &&  [ "$INSTRUQT_CMD" != "$GOTTY_SHELL" ]; then
     ${BASEDIR}/bin/dumb-init -- /bin/sh -c "$INSTRUQT_CMD" >/var/log/process.log 2>&1 &
 fi
 
