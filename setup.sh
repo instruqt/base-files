@@ -52,7 +52,7 @@ fi
 # Prettify the terminal
 cp ${BASEDIR}/config/vimrc $HOME/.vimrc
 cp ${BASEDIR}/config/bashrc $HOME/.bashrc
-cp ${BASEDIR}/config/profile /etc/profile
+cat ${BASEDIR}/config/profile >> /etc/profile
 
 # Copy the helper functions
 chmod +x ${BASEDIR}/bin/functions/*
