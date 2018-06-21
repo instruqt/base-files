@@ -62,14 +62,26 @@ cp -a ${BASEDIR}/bin/scp /bin/scp
 # Start dropbear
 pgrep sshd || ${BASEDIR}/bin/dumb-init ${BASEDIR}/bin/dropbear -s -g -F -R -E >/var/log/dropbear.log &
 
-# Start the entrypoint of the user but only if it is different from the shell
-if [ -n "$INSTRUQT_ENTRYPOINT" ] && [ "$INSTRUQT_ENTRYPOINT" != "$GOTTY_SHELL" ]; then
-    ${BASEDIR}/bin/dumb-init -- /bin/sh -c "$INSTRUQT_ENTRYPOINT $INSTRUQT_CMD" >/var/log/process.log 2>&1 &
+# Defaulting to INSTRUQT_ENTRYPOINT
+START_COMMAND=$INSTRUQT_ENTRYPOINT
+
+# No ENTRYPOINT but CMD
+if [ -z "$INSTRUQT_ENTRYPOINT" ] && [ -n "$INSTRUQT_CMD" ]; then
+  START_COMMAND=$INSTRUQT_CMD
 fi
 
-# Start the CMD of the user but only if it is different from the shell
-if [ -z "$INSTRUQT_ENTRYPOINT" ] && [ -n "$INSTRUQT_CMD" ] &&  [ "$INSTRUQT_CMD" != "$GOTTY_SHELL" ]; then
-    ${BASEDIR}/bin/dumb-init -- /bin/sh -c "$INSTRUQT_CMD" >/var/log/process.log 2>&1 &
+# Both ENTRYPOINT and CMD
+if [ -n "$INSTRUQT_ENTRYPOINT" ] && [ -n "$INSTRUQT_CMD" ]; then
+  if [ "$INSTRUQT_ENTRYPOINT" == "/bin/sh -c"* ]; then
+    START_COMMAND=$INSTRUQT_ENTRYPOINT
+  else
+    START_COMMAND=$INSTRUQT_ENTRYPOINT $INSTRUQT_CMD
+  fi
+fi
+
+# Check if the command is not the same as the shell
+if [ "$START_COMMAND" != "$GOTTY_SHELL" ]; then
+  ${BASEDIR}/bin/dumb-init -- $START_COMMAND >/var/log/process.log 2>&1 &
 fi
 
 echo "Setup completed, starting Gotty"
