@@ -81,11 +81,7 @@ fi
 
 # Check if the command is not the same as the shell
 if [[ "$START_COMMAND" != "$GOTTY_SHELL" ]]; then
-  if [[ "$START_COMMAND" == "/bin/sh -c"* ]]; then
     ${BASEDIR}/bin/dumb-init -- $START_COMMAND >/var/log/process.log 2>&1 &
-  else
-    ${BASEDIR}/bin/dumb-init -- /bin/sh -c "$START_COMMAND" >/var/log/process.log 2>&1 &
-  fi
 fi
 
 echo "Setup completed, starting Gotty"
@@ -95,5 +91,5 @@ ${BASEDIR}/bin/dumb-init --rewrite 2:15 --rewrite 15:9 ${BASEDIR}/bin/gotty \
         --title-format "Instruqt Shell" \
         --permit-write \
         --port $GOTTY_PORT \
-        /bin/sh -c "$GOTTY_SHELL"
+        $GOTTY_SHELL
 
