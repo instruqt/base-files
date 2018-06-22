@@ -80,16 +80,13 @@ if [ -n "$INSTRUQT_ENTRYPOINT" ] && [ -n "$INSTRUQT_CMD" ]; then
 fi
 
 # Check if the command is not the same as the shell
-if [ "$START_COMMAND" != "$GOTTY_SHELL" ]; then
-  if ["$START_COMMAND" == "/bin/sh -c"* ]; then
+if [[ "$START_COMMAND" != "$GOTTY_SHELL" ]]; then
+  if [[ "$START_COMMAND" == "/bin/sh -c"* ]]; then
     ${BASEDIR}/bin/dumb-init -- $START_COMMAND >/var/log/process.log 2>&1 &
   else
     ${BASEDIR}/bin/dumb-init -- /bin/sh -c "$START_COMMAND" >/var/log/process.log 2>&1 &
   fi
 fi
-
-
-
 
 echo "Setup completed, starting Gotty"
 
