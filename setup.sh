@@ -23,6 +23,8 @@ export TERM=xterm-color
 export PROMPT_COMMAND='history -a'
 
 
+sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config && systemctl restart ssh*
+
 # Fix for Alpine (MUSL <-> GLIBC)
 if [ -f /etc/alpine-release ]; then
   cp $BASEDIR/files/sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
