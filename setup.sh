@@ -22,8 +22,7 @@ rm -f ~/.bash_history && touch ~/.bash_history
 export TERM=xterm-color
 export PROMPT_COMMAND='history -a'
 
-
-sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config && systemctl restart ssh*
+sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config && systemctl restart ssh* || true
 
 # Fix for Alpine (MUSL <-> GLIBC)
 if [ -f /etc/alpine-release ]; then
