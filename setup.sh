@@ -22,12 +22,12 @@ rm -f ~/.bash_history && touch ~/.bash_history
 export TERM=xterm-color
 export PROMPT_COMMAND='history -a'
 
-if [ -f -x "$(command -v systemctl)" ]; then
+if [ -x "$(command -v systemctl)" ]; then
   sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
   systemctl restart ssh*
-elif [ -f -x "$(command -v service)" ]
+elif [ -x "$(command -v service)" ]
   sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
-  service ssh* restart
+  service ssh restart
 fi
 
 # Fix for Alpine (MUSL <-> GLIBC)
