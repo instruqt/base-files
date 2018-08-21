@@ -25,7 +25,7 @@ export PROMPT_COMMAND='history -a'
 if [ -x "$(command -v systemctl)" ]; then
   sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
   systemctl restart ssh*
-elif [ -x "$(command -v service)" ]
+elif [ -x "$(command -v service)" ]; then
   sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
   service ssh restart
 fi
