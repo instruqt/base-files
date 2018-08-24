@@ -23,10 +23,10 @@ export TERM=xterm-color
 export PROMPT_COMMAND='history -a'
 
 if [ -x "$(command -v systemctl)" ]; then
-  sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
+  sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config || true
   systemctl restart ssh* || true
 elif [ -x "$(command -v service)" ]; then
-  sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
+  sed -i 's/.*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config || true
   service ssh restart || true
 fi
 
