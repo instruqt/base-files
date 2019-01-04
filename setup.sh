@@ -53,6 +53,12 @@ if [ -f /.ssh-keys/id_rsa ]; then
   cp /.ssh-keys/* ~/.ssh/
 fi
 
+# Copy the Track SSH key to the root user
+mkdir -p /root/.ssh
+/bin/chmod 0700 /root/.ssh
+cat ~/.ssh/authorized_keys >> /root/.ssh/authorized_keys
+/bin/chmod 0600 /root/.ssh/authorized_keys
+
 # Set the correct permissions on the SSH directory
 /bin/chmod -Rf 0600 ~/.ssh
 
