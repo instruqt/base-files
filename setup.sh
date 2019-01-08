@@ -56,6 +56,8 @@ fi
 # Set the correct permissions on the SSH directory
 /bin/chmod -Rf 0600 ~/.ssh
 
+cp ${BASEDIR}/config/gotty.conf $HOME/.gotty
+
 # Prettify the terminal
 cp ${BASEDIR}/config/vimrc $HOME/.vimrc
 cp ${BASEDIR}/config/bashrc $HOME/.bashrc
